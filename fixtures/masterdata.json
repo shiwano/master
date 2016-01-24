@@ -1,0 +1,73 @@
+[
+  {
+    "age": 10,
+    "gender": "male",
+    "id": 1,
+    "items": [
+      {
+        "count": 1,
+        "desc": "ハエを叩く",
+        "name": "しっぽ"
+      }
+    ],
+    "name": "ムーミン",
+    "parents": {
+      "father": "ムーミンパパ",
+      "mother": "ムーミンママ"
+    },
+    "voice_actors": [
+      "岸田今日子",
+      "高山みなみ",
+      "野島健児"
+    ]
+  },
+  {
+    "age": 15,
+    "gender": "male",
+    "id": 2,
+    "items": [
+      {
+        "count": 2,
+        "desc": "魚を釣る",
+        "name": "釣り竿"
+      },
+      {
+        "count": 1,
+        "desc": "たまに吹く",
+        "name": "ハーモニカ"
+      }
+    ],
+    "name": "スナフキン",
+    "parents": {
+      "father": "ヨクサル",
+      "mother": ""
+    },
+    "voice_actors": [
+      "西本裕行",
+      "子安武人",
+      "白熊寛嗣"
+    ]
+  },
+  {
+    "age": 18,
+    "gender": "female",
+    "id": 3,
+    "items": [
+      {
+        "count": 1,
+        "desc": "",
+        "name": "ソリ"
+      }
+    ],
+    "name": "ミイ",
+    "parents": {
+      "father": "",
+      "mother": "ミムラ"
+    },
+    "voice_actors": [
+      "堀絢子",
+      "佐久間レイ",
+      "水田わさび"
+    ]
+  }
+]
