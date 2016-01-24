@@ -12,7 +12,7 @@ import (
 
 var (
 	numberValuePattern = regexp.MustCompile("^[0-9]+\\.?[0-9]*$")
-	csvColumnPattern   = regexp.MustCompile("(?i)^[^0-9.]+(\\.[0-9a-z]+)*$")
+	csvColumnPattern   = regexp.MustCompile("^[^0-9.]+(\\.[^.]+)*$")
 )
 
 // CSVColumn represents a column of CSVTable.
