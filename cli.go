@@ -123,7 +123,7 @@ func (c *Cli) fixCSVEncoding() {
 			encoding = "UTF-8"
 		}
 
-		if detected != encoding {
+		if detected != encoding || detected == "UTF-8" {
 			decoded := c.decode(filePath, detected, data)
 			encoded, err := encode(decoded, encoding)
 			if err != nil {

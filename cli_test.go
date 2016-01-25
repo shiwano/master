@@ -39,7 +39,20 @@ func TestCli(t *testing.T) {
 					cli.run()
 					actual, err := ioutil.ReadFile("./.tmp/masterdata.csv")
 					So(err, ShouldBeNil)
-					expected, err := ioutil.ReadFile("./fixtures/masterdata-utf8-bom.csv")
+					expected, err := ioutil.ReadFile("./fixtures/masterdata-utf-8-bom.csv")
+					So(err, ShouldBeNil)
+					So(actual, ShouldResemble, expected)
+				})
+
+				Convey("should add BOM to UTF-8 CSV", func() {
+					data, _ := ioutil.ReadFile("./fixtures/masterdata-utf-8.csv")
+					ioutil.WriteFile("./.tmp/masterdata-utf-8.csv", data, 0777)
+					cli.file = "./.tmp/masterdata-utf-8.csv"
+
+					cli.run()
+					actual, err := ioutil.ReadFile("./.tmp/masterdata-utf-8.csv")
+					So(err, ShouldBeNil)
+					expected, err := ioutil.ReadFile("./fixtures/masterdata-utf-8-bom.csv")
 					So(err, ShouldBeNil)
 					So(actual, ShouldResemble, expected)
 				})
@@ -88,7 +101,8 @@ func TestCli(t *testing.T) {
 
 				actual := cli.csvFilePaths()
 				So(actual, ShouldResemble, []string{
-					"fixtures/masterdata-utf8-bom.csv",
+					"fixtures/masterdata-utf-8-bom.csv",
+					"fixtures/masterdata-utf-8.csv",
 					"fixtures/masterdata.csv",
 				})
 			})
