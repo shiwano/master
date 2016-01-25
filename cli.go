@@ -31,11 +31,7 @@ func (c *Cli) run() {
 		c.makeOutputDirs()
 	}
 
-	for _, csvTable := range c.csvTables() {
-		masterData, err := newMasterDataFromCSV(csvTable, 2)
-		if err != nil {
-			fatalf("Failed to convert master data from CSV data: %v\n%v", csvTable.fileName, err)
-		}
+	for _, masterData := range c.masterDataList() {
 		if c.outputSchema {
 			jsonSchemaPath := filepath.Join(c.schemaDir,
 				strings.Replace(masterData.fileName, ".json", ".schema.json", 1))
@@ -134,9 +130,9 @@ func (c *Cli) fixCSVEncoding() {
 	}
 }
 
-func (c *Cli) csvTables() []*CSVTable {
+func (c *Cli) masterDataList() []*MasterData {
 	filePaths := c.csvFilePaths()
-	dataList := make([]*CSVTable, len(filePaths))
+	result := make([]*MasterData, len(filePaths))
 
 	for i, filePath := range filePaths {
 		data := c.readFile(filePath)
@@ -145,13 +141,19 @@ func (c *Cli) csvTables() []*CSVTable {
 			encoding = c.detectEncoding(filePath, data)
 		}
 		decoded := c.decode(filePath, encoding, data)
+
 		csvTable, err := newCSVTable(filePath, encoding, decoded)
 		if err != nil {
 			fatalf("Failed to parse CSV data: %v\n%v", filePath, err)
 		}
-		dataList[i] = csvTable
+
+		masterData, err := newMasterDataFromCSV(csvTable, 2)
+		if err != nil {
+			fatalf("Failed to convert master data from CSV data: %v\n%v", csvTable.fileName, err)
+		}
+		result[i] = masterData
 	}
-	return dataList
+	return result
 }
 
 func (c *Cli) csvFilePaths() []string {

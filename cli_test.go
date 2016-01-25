@@ -86,12 +86,12 @@ func TestCli(t *testing.T) {
 			})
 		})
 
-		Convey("#csvTables", func() {
-			Convey("should return decoded csv data list", func() {
+		Convey("#masterDataList", func() {
+			Convey("should return master data list", func() {
 				cli.file = "./fixtures/masterdata.csv"
 
-				actual := cli.csvTables()[0]
-				So(actual.rows[0][1], ShouldEqual, "ムーミン")
+				actual := cli.masterDataList()[0]
+				So(actual.json(), ShouldContainSubstring, "ムーミン")
 			})
 		})
 
