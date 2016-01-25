@@ -63,7 +63,8 @@ Options:
 
 ## Nested Object and Array
 
-master uses dot as a separator to clarify nested object and array. You can use csv column name patterns like below.
+master uses dot(.) as a separator to clarify nested object and array.
+You can use csv column name patterns like below.
 
 Nested object:
 
@@ -108,13 +109,25 @@ Mix:
 
 ## Validation
 
-master supports JSON Schema for validation. For example, if `foo.csv` was given as argument, master finds `foo.schema.json` from schema directory, and will use it for validation.
+master supports JSON Schema validation. For example,
+if `foo.csv` was given as argument, master finds `foo.schema.json` from
+schema directory, and will use it for validation.
 
-If you want to get easily JSON Schema from CSV, you can use `--output-schema` option:
+The `--output-schema` option lets you get easily JSON Schema from CSV.
 
 ```bash
 $ master --output-schema masterdata.csv
 ```
+
+## Encoding
+
+master uses [chardet](https://github.com/saintfish/chardet) libraly to detect
+charset of CSV files. It's based on the algorithm and data in
+[ICU](http://icu-project.org/)'s implementation.
+
+If the `--fix-encoding` option was given, master fixes the CSV file encoding
+to the `--encoding` option value (`auto` is same as `UTF-8`).
+Note that master always adds BOM to UTF-8 CSV files.
 
 ## License
 
