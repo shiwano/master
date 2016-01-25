@@ -22,7 +22,7 @@ Options:
   -e, --encoding string          CSV file encoding [default: auto]. Supported encodings are https://goo.gl/T3zICN
   -E, --fix-encoding             Fix the CSV file encoding if it is different from --encoding.
   -n, --no-output-file           No file output. If file is given, print JSON string to stdout.
-  -S, --output-schema            Output JSON schema from CSV files.
+  -S, --output-schema            Output JSON Schema from CSV files.
   -V, --skip-validation          Skip validation by JSON Schema.
   -h, --help                     Output help information.
   -v, --version                  Output version.
