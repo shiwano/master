@@ -156,7 +156,7 @@ func (c *CSVTable) getMapData(container map[string]interface{},
 
 	if len(keys) == 1 {
 		container[key] = value
-	} else if arrayIndex, err := strconv.Atoi(nextKey); err == nil {
+	} else if arrayIndex, err := strconv.Atoi(nextKey); err == nil && arrayIndex >= 0 {
 		if container[key] == nil {
 			container[key] = make([]interface{}, arrayIndex+1)
 		}

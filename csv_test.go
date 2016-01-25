@@ -208,6 +208,20 @@ func TestCSVTable(t *testing.T) {
 					})
 				})
 			})
+
+			Convey("with column name which is minus number", func() {
+				csvData := []byte("items.-1,items.-2\na,b\nd,e")
+				csvTable, _ := newCSVTable("test.csv", "utf-8", csvData)
+
+				Convey("should return map data", func() {
+					actual, err := csvTable.data()
+					So(err, ShouldBeNil)
+					So(actual, ShouldResemble, []map[string]interface{}{
+						map[string]interface{}{"items": map[string]interface{}{"-1": "a", "-2": "b"}},
+						map[string]interface{}{"items": map[string]interface{}{"-1": "d", "-2": "e"}},
+					})
+				})
+			})
 		})
 	})
 }
