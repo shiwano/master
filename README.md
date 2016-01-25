@@ -63,7 +63,7 @@ Options:
 
 ## Nested Object and Array
 
-master uses dot as a separator to clarify nested Object and Array. You can use csv column name patterns like below.
+master uses dot as a separator to clarify nested object and array. You can use csv column name patterns like below.
 
 Nested object:
 
