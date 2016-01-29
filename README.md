@@ -14,7 +14,7 @@ master will convert this CSV to like below:
 [
   {
     "id": 1,
-    "author": { "id": 1, "name": "Alice" },
+    "author": { "id": 100, "name": "Alice" },
     "members": [
       { "id": 200, "name": "White Rabbit" },
       { "id": 300, "name": "Cheshire Cat" }
