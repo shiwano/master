@@ -1,4 +1,4 @@
-id,name,age,gender,items.0.name,items.0.desc,items.0.count,items.2.name,items.2.desc,items.2.count,parents.father,parents.mother,voice_actors.0,voice_actors.1,voice_actors.2
-1,ムーミン,10,male,しっぽ,ハエを叩く,1,,,,ムーミンパパ,ムーミンママ,岸田今日子,高山みなみ,野島健児
-2,スナフキン,15,male,釣り竿,魚を釣る,2,ハーモニカ,たまに吹く,1,ヨクサル,,西本裕行,子安武人,白熊寛嗣
-3,ミイ,18,female,ソリ,,1,,,,,ミムラ,堀絢子,佐久間レイ,水田わさび
+id,name,age,gender,items.0.name,items.0.desc,items.0.count,items.0.sale,items.2.name,items.2.desc,items.2.count,items.2.sale,parents.father,parents.mother,voice_actors.0,voice_actors.1,voice_actors.2
+1,ムーミン,10,male,しっぽ,ハエを叩く,1,FALSE,,,,,ムーミンパパ,ムーミンママ,岸田今日子,高山みなみ,野島健児
+2,スナフキン,15,male,釣り竿,魚を釣る,2,TRUE,ハーモニカ,たまに吹く,1,TRUE,ヨクサル,,西本裕行,子安武人,白熊寛嗣
+3,ミイ,18,female,ソリ,,1,TRUE,,,,,,ミムラ,堀絢子,佐久間レイ,水田わさび

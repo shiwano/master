@@ -7,7 +7,8 @@
       {
         "count": 1,
         "desc": "ハエを叩く",
-        "name": "しっぽ"
+        "name": "しっぽ",
+        "sale": false
       }
     ],
     "name": "ムーミン",
@@ -29,12 +30,14 @@
       {
         "count": 2,
         "desc": "魚を釣る",
-        "name": "釣り竿"
+        "name": "釣り竿",
+        "sale": true
       },
       {
         "count": 1,
         "desc": "たまに吹く",
-        "name": "ハーモニカ"
+        "name": "ハーモニカ",
+        "sale": true
       }
     ],
     "name": "スナフキン",
@@ -56,7 +59,8 @@
       {
         "count": 1,
         "desc": "",
-        "name": "ソリ"
+        "name": "ソリ",
+        "sale": true
       }
     ],
     "name": "ミイ",

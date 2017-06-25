@@ -12,6 +12,7 @@ import (
 
 var (
 	numberValuePattern = regexp.MustCompile("^[0-9]+\\.?[0-9]*$")
+	boolValuePattern   = regexp.MustCompile("^(TRUE|FALSE)$")
 	csvColumnPattern   = regexp.MustCompile("^[^0-9.]+(\\.[^.]+)*$")
 )
 
@@ -20,6 +21,7 @@ type CSVColumn struct {
 	index    int
 	name     string
 	isString bool
+	isBool   bool
 }
 
 func newCSVColumns(records [][]string) ([]*CSVColumn, error) {
@@ -38,7 +40,11 @@ func newCSVColumns(records [][]string) ([]*CSVColumn, error) {
 			return nil, fmt.Errorf("Record length is not enough: %v", record)
 		}
 		for i, value := range record {
-			if value != "" && !numberValuePattern.MatchString(value) {
+			if value == "" || numberValuePattern.MatchString(value) {
+				continue
+			} else if boolValuePattern.MatchString(value) {
+				columns[i].isBool = true
+			} else {
 				columns[i].isString = true
 			}
 		}
@@ -86,6 +92,8 @@ func newCSVTable(path string, encoding string, data []byte) (*CSVTable, error) {
 
 			if columns[i].isString {
 				row[i] = strValue
+			} else if columns[i].isBool {
+				row[i] = strValue == "TRUE"
 			} else if strValue == "" {
 				row[i] = 0
 			} else {
@@ -132,11 +140,13 @@ func (c *CSVTable) removeEmptyArrayItemRecursively(container map[string]interfac
 			for _, arrayItem := range valueAsArray {
 				if arrayItemAsMap, ok := arrayItem.(map[string]interface{}); ok {
 					for _, v := range arrayItemAsMap {
-						if v != 0 && v != "" {
+						if v != 0 && v != "" && v != false {
 							array = append(array, arrayItem)
 							break
 						}
 					}
+				} else if arrayItemAsString, ok := arrayItem.(string); ok && arrayItemAsString != "" {
+					array = append(array, arrayItem)
 				} else if arrayItem != nil {
 					array = append(array, arrayItem)
 				}

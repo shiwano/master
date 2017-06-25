@@ -24,12 +24,16 @@
             },
             "name": {
               "type": "string"
+            },
+            "sale": {
+              "type": "boolean"
             }
           },
           "required": [
             "count",
             "desc",
-            "name"
+            "name",
+            "sale"
           ],
           "type": "object"
         },

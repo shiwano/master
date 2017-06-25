@@ -1,8 +1,9 @@
 package main
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestCSV(t *testing.T) {
@@ -10,25 +11,26 @@ func TestCSV(t *testing.T) {
 		Convey(".newCSVColumns", func() {
 			Convey("should return new CSVColumns", func() {
 				csvRecords := [][]string{
-					[]string{"str", "num", "mixed"},
-					[]string{"foo", "1", "1"},
-					[]string{"bar", "2.01", "qux"},
-					[]string{"baz", "3", "3"},
+					[]string{"str", "num", "mixed", "bool"},
+					[]string{"foo", "1", "1", "TRUE"},
+					[]string{"bar", "2.01", "qux", "FALSE"},
+					[]string{"baz", "3", "3", ""},
 				}
 
 				actual, err := newCSVColumns(csvRecords)
 				So(err, ShouldBeNil)
 				So(actual, ShouldResemble, []*CSVColumn{
-					&CSVColumn{index: 0, name: "str", isString: true},
-					&CSVColumn{index: 1, name: "num", isString: false},
-					&CSVColumn{index: 2, name: "mixed", isString: true},
+					&CSVColumn{index: 0, name: "str", isString: true, isBool: false},
+					&CSVColumn{index: 1, name: "num", isString: false, isBool: false},
+					&CSVColumn{index: 2, name: "mixed", isString: true, isBool: false},
+					&CSVColumn{index: 3, name: "bool", isString: false, isBool: true},
 				})
 			})
 		})
 
 		Convey(".newCSVTable", func() {
 			Convey("with valid data", func() {
-				csvData := []byte("str,num\nfoo,1\nbar,2")
+				csvData := []byte("str,num,bool\nfoo,1,TRUE\nbar,2,FALSE")
 
 				Convey("should return a new CSVTable", func() {
 					actual, err := newCSVTable("foo/test.csv", "utf-8", csvData)
@@ -37,12 +39,13 @@ func TestCSV(t *testing.T) {
 						fileName: "test.csv",
 						encoding: "utf-8",
 						columns: []*CSVColumn{
-							&CSVColumn{index: 0, name: "str", isString: true},
-							&CSVColumn{index: 1, name: "num", isString: false},
+							&CSVColumn{index: 0, name: "str", isString: true, isBool: false},
+							&CSVColumn{index: 1, name: "num", isString: false, isBool: false},
+							&CSVColumn{index: 2, name: "bool", isString: false, isBool: true},
 						},
 						rows: [][]interface{}{
-							[]interface{}{"foo", 1.0},
-							[]interface{}{"bar", 2.0},
+							[]interface{}{"foo", 1.0, true},
+							[]interface{}{"bar", 2.0, false},
 						},
 					})
 				})
@@ -101,15 +104,15 @@ func TestCSVTable(t *testing.T) {
 	Convey("CSVTable", t, func() {
 		Convey("#data", func() {
 			Convey("with normal key-value data", func() {
-				csvData := []byte("str,num\nfoo,1\nbar,2")
+				csvData := []byte("str,num,bool\nfoo,1,TRUE\nbar,2,FALSE")
 				csvTable, _ := newCSVTable("test.csv", "utf-8", csvData)
 
 				Convey("should return map data", func() {
 					actual, err := csvTable.data()
 					So(err, ShouldBeNil)
 					So(actual, ShouldResemble, []map[string]interface{}{
-						map[string]interface{}{"str": "foo", "num": 1.0},
-						map[string]interface{}{"str": "bar", "num": 2.0},
+						map[string]interface{}{"str": "foo", "num": 1.0, "bool": true},
+						map[string]interface{}{"str": "bar", "num": 2.0, "bool": false},
 					})
 				})
 			})
