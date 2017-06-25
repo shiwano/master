@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/ttacon/chalk"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/ttacon/chalk"
 )
 
 // Cli represents the master command.
@@ -20,6 +21,7 @@ type Cli struct {
 	noOutputFile   bool
 	outputSchema   bool
 	skipValidation bool
+	noSchemaSuffix bool
 	silent         bool
 }
 
@@ -59,7 +61,13 @@ func (c *Cli) log(args ...interface{}) {
 }
 
 func (c *Cli) validateJSON(fileName string, jsonText string) {
-	schemaPath := filepath.Join(c.schemaDir, strings.Replace(fileName, ".json", ".schema.json", 1))
+	var schemaPath string
+	if c.noSchemaSuffix {
+		schemaPath = filepath.Join(c.schemaDir, fileName)
+	} else {
+		schemaPath = filepath.Join(c.schemaDir, strings.Replace(fileName, ".json", ".schema.json", 1))
+	}
+
 	schemaData, err := ioutil.ReadFile(schemaPath)
 	if err == nil {
 		schemaText := string(schemaData)

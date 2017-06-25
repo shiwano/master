@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/tj/docopt"
-	"github.com/ttacon/chalk"
 	"os"
 	"path/filepath"
+
+	"github.com/tj/docopt"
+	"github.com/ttacon/chalk"
 )
 
 const version = "0.3.0"
@@ -24,6 +25,7 @@ Options:
   -n, --no-output-file           No file output. If file is given, print JSON string to stdout.
   -S, --output-schema            Output JSON Schema from CSV files.
   -V, --skip-validation          Skip validation by JSON Schema.
+  -j, --no-schema-suffix         Disable to use *.schema.json suffix pattern.
   -h, --help                     Output help information.
   -v, --version                  Output version.
 `
@@ -64,6 +66,7 @@ func main() {
 		noOutputFile:   args["--no-output-file"].(bool),
 		outputSchema:   args["--output-schema"].(bool),
 		skipValidation: args["--skip-validation"].(bool),
+		noSchemaSuffix: args["--no-schema-suffix"].(bool),
 	}
 	cli.run()
 }
