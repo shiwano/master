@@ -4,9 +4,9 @@ Converts CSV to structured JSON with JSON Schema validation.
 
 Example:
 
-|id|author.id|author.name|members.0.id|members.0.name|members.1.id|members.1.name|comments.0|comments.1|
-|---|---|---|---|---|---|---|---|---|
-|1|100|Alice|200|White rabbit|300|Cheshire Cat|Hi|Hello|
+|id|author.id|author.name|author.is_human|members.0.id|members.0.name|members.1.id|members.1.name|comments.0|comments.1|
+|---|---|---|---|---|---|---|---|---|---|
+|1|100|Alice|TRUE|200|White rabbit|300|Cheshire Cat|Hi|Hello|
 
 master will convert this CSV to like below:
 
@@ -14,7 +14,7 @@ master will convert this CSV to like below:
 [
   {
     "id": 1,
-    "author": { "id": 100, "name": "Alice" },
+    "author": { "id": 100, "name": "Alice", "is_human": true },
     "members": [
       { "id": 200, "name": "White Rabbit" },
       { "id": 300, "name": "Cheshire Cat" }
@@ -129,6 +129,10 @@ charset of CSV files. It's based on the algorithm and data in
 If the `--fix-encoding` option was given, master fixes the CSV file encoding
 to the `--encoding` option value (`auto` is same as `UTF-8`).
 Note that master always adds BOM to UTF-8 CSV files.
+
+## Boolean
+
+master parses CSV's `TRUE` and `FALSE` strings to JSON's boolean values (An empty string is same as `FALSE`).
 
 ## License
 
