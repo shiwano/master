@@ -57,6 +57,7 @@ Options:
   -n, --no-output-file           No file output. If file is given, print JSON string to stdout.
   -S, --output-schema            Output JSON schema from CSV files.
   -V, --skip-validation          Skip validation by JSON Schema.
+  -j, --no-schema-suffix         Disable to use *.schema.json suffix pattern.
   -h, --help                     Output help information.
   -v, --version                  Output version.
 ```
